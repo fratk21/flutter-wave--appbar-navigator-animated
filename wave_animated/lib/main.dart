@@ -144,13 +144,22 @@ class _WaveAppBarNavigatorState extends State<WaveAppBarNavigator>
           ),
           Positioned(
             bottom: 95,
+            left: MediaQuery.of(context).size.width / 2 - 25,
             child: AnimatedBuilder(
               animation: _floatingButtonAnimation,
               builder: (BuildContext context, Widget? child) {
                 return Transform.translate(
                   offset: Offset(
                     0,
-                    -20 * sin(_floatingButtonAnimation.value),
+                    -15 * sin(_floatingButtonAnimation.value),
+                  ),
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    backgroundColor: Colors.red,
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 );
               },
@@ -175,13 +184,14 @@ class _WavyPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.blueAccent;
+    final paint = Paint()..color = Colors.blue;
 
     final path = Path();
     path.lineTo(0, size.height);
 
     for (double i = 0; i < size.width; i++) {
-      path.lineTo(i, sin((i / size.width + waveProgress) * 3 * pi) * 12 + -15);
+      /// You can change number of waves(2) and position(12, -15)
+      path.lineTo(i, sin((i / size.width + waveProgress) * 2 * pi) * 12 + -15);
     }
 
     path.lineTo(size.width, size.height);
